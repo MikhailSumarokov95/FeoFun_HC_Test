@@ -7,6 +7,9 @@ TagManager:
   - Neutral
   - EventManager
   - Enemy
+  - Road
+  - GameStatusManager
+  - UIManager
   layers:
   - Default
   - TransparentFX

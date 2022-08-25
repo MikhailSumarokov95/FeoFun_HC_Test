@@ -9,11 +9,13 @@ public class EventManager : MonoBehaviour
     [SerializeField] private Material _neutral;
     private GameObject _player;
     private BoxCollider _playerBc;
+    private GameStatusManager _statusManager;
 
     private void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         _playerBc = _player.GetComponent<BoxCollider>();
+        _statusManager = GameObject.FindGameObjectWithTag("GameStatusManager").GetComponent<GameStatusManager>();
     }
 
     public void CrushToNeutralCube(GameObject neutral)
@@ -32,5 +34,16 @@ public class EventManager : MonoBehaviour
         towerFloor.transform.parent = null;
         _playerBc.size -= Vector3.up * 2;
         towerFloor.GetComponent<MeshRenderer>().material = _neutral;
+        CheckCountCube();
+    }
+
+    public void ReachedFinishLine()
+    {
+        _statusManager.WinRound();
+    }
+
+    private void CheckCountCube()
+    {
+        if (_player.transform.childCount < 1) _statusManager.LossRound();
     }
 }

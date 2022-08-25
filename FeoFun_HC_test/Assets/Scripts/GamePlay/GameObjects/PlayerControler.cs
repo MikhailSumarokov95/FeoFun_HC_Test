@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerControler : MonoBehaviour
 {
     [SerializeField] private float _speed = 300f;
-    [SerializeField] private float _forceJump = 100f;
+    [SerializeField] private float _jumpForce = 10f;
     private Rigidbody _playerRb;
+    private bool _onStayRoad;
     
 
     private void Start()
@@ -24,9 +25,18 @@ public class PlayerControler : MonoBehaviour
         transform.Translate(Vector3.forward * _speed * Time.deltaTime);
     }
 
-    public void Jump()
+    public void Jump(float forceJump)
     {
-        Debug.Log("jump");
-        _playerRb.AddForce(Vector3.up * _forceJump, ForceMode.Impulse);
+        if (_onStayRoad) _playerRb.AddForce(Vector3.up * forceJump * _jumpForce, ForceMode.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Road") _onStayRoad = true;
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.tag == "Road") _onStayRoad = false;
     }
 }

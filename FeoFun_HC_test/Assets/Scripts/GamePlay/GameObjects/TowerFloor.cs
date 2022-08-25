@@ -13,10 +13,11 @@ public class TowerFloor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Triggerter");
         if (other.gameObject.tag == "Neutral")
             _eventManager.CrushToNeutralCube(other.gameObject);
         if (other.gameObject.tag == "Enemy")
             _eventManager.CrushToEnemyCube(other, gameObject);
+        if (other.gameObject.tag == "Finish")
+            _eventManager.ReachedFinishLine();
     }
 }
