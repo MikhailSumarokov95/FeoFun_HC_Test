@@ -32,7 +32,7 @@ public class InputControler : MonoBehaviour
         while (true)
         {
             yield return null;
-            if (_forceJump < 1) _forceJump += 0.02f;
+            if (_forceJump < 1) _forceJump += 0.04f;
             if (Input.GetMouseButtonUp(0)) break;
         }
         _playerControler.Jump(_forceJump);
